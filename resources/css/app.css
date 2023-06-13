@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.bg-nav{
+    background-color: #96404C;
+}
+
+.bg-footer{
+    background-color: #EBEFEE;
+}
+
+.border-bukanlepra {
+
+    border-color: #96404C;
+}
+.text-bukanlepra{
+    color: #96404C;
+}
+
+.bg-identifikasi {
+    background-color: #F72C25;
+}
+
+.bg-pemetaan {
+    background-color: #89023E;
+}
+
+.bg-pengorganisasian {
+    background-color: #339989;
+}
+
+.bg-redistribusi{
+    background-color: #0D3B66;
+}
+
+.bg-pbsnonaktif{
+    background-color: #F4B393;
+}
+
+.leaflet-popup-content{
+    width: 330px !important;
+
+}
