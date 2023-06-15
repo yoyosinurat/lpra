@@ -22,6 +22,11 @@
                     </div>
 
                     <div class="flex sm:space-x-4 space-x-2 items-center w-full ">
+                        <label class="text-bukanlepra font-semibold">Tahapan: </label>
+                        <p class="">{{$data->tahapan}}</p>
+                    </div>
+
+                    <div class="flex sm:space-x-4 space-x-2 items-center w-full ">
                         <label class="text-bukanlepra font-semibold">Penggunaan Tanah: </label>
                         <p class="">{{$data->penggunaantanah}}</p>
                     </div>
