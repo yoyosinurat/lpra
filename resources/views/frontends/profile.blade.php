@@ -2,6 +2,6 @@
 
 
 @section('content')
-    @include('partials.navDetail')
+    @include('partials.navdetail')
     <livewire:list-profile-component />
 @endsection
