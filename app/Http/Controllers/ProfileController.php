@@ -12,6 +12,7 @@ class ProfileController extends Controller
         return view('backends.addprofile', compact('title'));
     }
 
+
     public function getDetailProfile($slug){
         return DB::table('profilelpra')->where('slug', $slug)->first();
     }
@@ -22,5 +23,11 @@ class ProfileController extends Controller
         $title = $this->getDetailProfile($slug)->profile;
         $data = $this->getDetailProfile($slug);
         return view('frontends.detailprofile', compact('title','nav', 'data'));
+    }
+
+    public function list(){
+        $title = 'Profiles - LPRA';
+        $nav = 'profile';
+        return view('frontends.profile', compact('title', 'nav'));
     }
 }

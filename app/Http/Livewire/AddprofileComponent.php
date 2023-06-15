@@ -16,7 +16,7 @@ class AddprofileComponent extends Component
 {
     use WithFileUploads;
     public $isProfile, $isactive = 1;
-    public $photo, $profile = '. . .',$jumlahpetani, $chooseprofile, $lokasi, $luas, $penggunaantanah, $bagiantanah, $sejarahperkebunan, $sejarahpenguasaan, $upayadanperkembangan, $analisishukum, $kesimpulan, $rekomendasi;
+    public $tahapan, $photo, $profile = '. . .',$jumlahpetani, $chooseprofile, $lokasi, $luas, $penggunaantanah, $bagiantanah, $sejarahperkebunan, $sejarahpenguasaan, $upayadanperkembangan, $analisishukum, $kesimpulan, $rekomendasi;
 
     public function uploadImage(){
         $file = $this->photo->store('public/photos/shares');
@@ -93,7 +93,7 @@ class AddprofileComponent extends Component
         $this->isProfile = !$this->isProfile;
     }
 
-    public function selectProfile($profile,$luas_ha,$jumlahpetani,$provinsi,$kecamatan,$kabupaten,$desa, $penggunaantanah){
+    public function selectProfile($profile,$luas_ha,$jumlahpetani,$provinsi,$kecamatan,$kabupaten,$desa, $penggunaantanah, $tahapan){
         if($this->checkProfile($profile)){
             $message = 'Profile sudah ada di database.';
             $type = 'error'; //error, success
@@ -105,6 +105,7 @@ class AddprofileComponent extends Component
             $this->luas = $luas_ha;
             $this->jumlahpetani = $jumlahpetani;
             $this->penggunaantanah = $penggunaantanah;
+            $this->tahapan = $tahapan;
             $this->isProfile = false;
         };
 
@@ -118,6 +119,7 @@ class AddprofileComponent extends Component
                 'img' => $this->uploadImage(),
                 'lokasi' => $this->lokasi,
                 'luas' => $this->luas,
+                'tahapan' => $this->tahapan,
                 'jumlahpetani' => $this->jumlahpetani,
                 'penggunaantanah' => $this->penggunaantanah,
                 'bagiantanah' => $this->bagiantanah,

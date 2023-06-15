@@ -76,7 +76,7 @@
                           <input   wire:model='chooseprofile' type="text" name="" id="" class="w-full mb-2  bg-gray-100  text-gray-700  rounded   border  py-2 px-4 focus:outline-none border-gray-300 dark:border-opacity-20" placeholder="Provinsi. . .">
 
                           @foreach ($dataprofiles as $item )
-                              <a  wire:click="selectProfile('{{ $item->profil }}','{{ $item->luas_ha }}','{{ $item->rtpp }}','{{ $item->provinsi }}','{{ $item->kecamatan }}','{{ $item->kabupaten }}','{{ $item->desa }}', '{{ $item->penggunaan }}')"  class="text-white py-1 hover:bg-gray-700 px-4">{{$item->profil}}</a>
+                              <a  wire:click="selectProfile('{{ $item->profil }}','{{ $item->luas_ha }}','{{ $item->rtpp }}','{{ $item->provinsi }}','{{ $item->kecamatan }}','{{ $item->kabupaten }}','{{ $item->desa }}', '{{ $item->penggunaan }}', '{{$item->tahapan}}')"  class="text-white py-1 hover:bg-gray-700 px-4">{{$item->profil}}</a>
                           @endforeach
                       </div>
                     @endif
@@ -93,8 +93,12 @@
                     <h1 class="text-2xl font-semibold  text-newbg-newgray-900 dark:text-gray-300 mb-4 mt-6">Penggunaan Tanah</h1>
                     <input  type="text" class="bg-gray-100 dark:bg-newgray-700 text-newgray-700 dark:text-gray-300 rounded w-full border  py-2 px-4 focus:outline-none border-gray-300 dark:border-opacity-20"  wire:model.defer='penggunaantanah' >
 
+                    <h1 class="text-2xl font-semibold  text-newbg-newgray-900 dark:text-gray-300 mb-4 mt-6">Tahapan</h1>
+                    <input  type="text" class="bg-gray-100 dark:bg-newgray-700 text-newgray-700 dark:text-gray-300 rounded w-full border  py-2 px-4 focus:outline-none border-gray-300 dark:border-opacity-20"  wire:model.defer='tahapan' >
+
                     <h1 class="text-2xl font-semibold  text-newbg-newgray-900 dark:text-gray-300 mb-4 mt-6">Bagian Tanah</h1>
                     <input  type="text" class="bg-gray-100 dark:bg-newgray-700 text-newgray-700 dark:text-gray-300 rounded w-full border  py-2 px-4 focus:outline-none border-gray-300 dark:border-opacity-20"  wire:model.defer='bagiantanah' >
+
 
 
 

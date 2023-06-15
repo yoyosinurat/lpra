@@ -8,7 +8,7 @@ class IndexController extends Controller
 {
     public function index(){
         $nav = 'index';
-        $title = 'Bukanlepra';
+        $title = 'Lokasi Prioritas Reforma Agraria';
         return view('frontends.index', compact('title','nav'));
     }
 }

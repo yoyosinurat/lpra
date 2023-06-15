@@ -34,8 +34,23 @@ module.exports = {
             fontFamily: {
             'sans': ['DM Sans', ...defaultTheme.fontFamily.sans],
             },
+            typography: {
+                DEFAULT: {
+                  css: {
+                    '--tw-prose-counters': {
+                        colors : '#e2e0d7',
+                        },
+                    '--tw-prose-bullets':{
+                        colors : '#e2e0d7',
+                        },
+                    },
+                }
+            }
+
         },
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
 }
 

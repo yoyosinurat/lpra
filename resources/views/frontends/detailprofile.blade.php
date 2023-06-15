@@ -3,7 +3,7 @@
 @section('content')
     @include('partials.navdetail')
 
-    <div class="max-w-5xl px-4  mx-auto sm:mt-12 mt-4">
+    <div class="max-w-4xl px-4  mx-auto sm:mt-12 mt-4">
         <div class="grid sm:grid-cols-2 grids-cols-1 gap-6 w-full">
             <div class=" col-span-1 sm:h-80 h-full">
                 <img src="{{ asset('storage/photos/shares/'.$data->img) }}" alt="" class="w-full h-full">
@@ -86,11 +86,5 @@
 
     </div>
 
-    <footer class="bg-footer py-4 px-4 sm:mt-12 mt-4">
-        <div class="text-center w-full">
-            <h2 class="font-bold">Konsorsium Pembaruan Agraria</h2>
-            <h3 class="text-sm font-light">Komplek Liga Mas Indah, Jl. Pancoran Indah I, E3/1, Pancoran</h3>
-            <h4 class="text-sm font-light">Jakarta Selatan, 12750</h4>
-        </div>
-    </footer>
+    @include('partials.footer')
 @endsection

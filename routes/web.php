@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
@@ -17,8 +18,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/profile', [ProfileController::class, 'list'])->name('profile');
 Route::get('/cms/addprofile', [ProfileController::class, 'addprofile']);
 Route::get('/{slug}', [ProfileController::class, 'detailprofile']);
+Route::get('/cms/addabout', [AboutController::class, 'addabout']);
 
 
 
