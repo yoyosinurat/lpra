@@ -15,12 +15,12 @@ var planet = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/W
 var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
-});
+}).addTo(map);
 
 var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     detectRetina: true,
     maxNativeZoom: 17
-}).addTo(map);
+});
 
 var poly = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
     layers: 'kpa:KPA_3',
