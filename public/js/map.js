@@ -28,6 +28,12 @@ var forestADM = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
         format: 'image/png'
 }).addTo(map)
 
+var IUPHHK_adm = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
+        layers: 'simontini:IUPHHK_adm',
+        transparent: true,
+        format: 'image/png'
+}).addTo(map)
+
 var poly = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
     layers: 'kpa:LPRA_KPA19_JUNI_2023',
     transparent: true,
@@ -43,7 +49,8 @@ var baseLayers = {
 
 var overlays = {
     "polygon desa": poly,
-    "forest adm": forestADM
+    "forest adm": forestADM,
+    "IUPHHK_adm": IUPHHK_adm
 };
 
 L.control.layers(baseLayers, overlays, {position: 'bottomleft'}).addTo(map);
