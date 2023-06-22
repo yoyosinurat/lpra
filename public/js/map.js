@@ -22,17 +22,18 @@ var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     maxNativeZoom: 17
 });
 
+var forestADM = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
+        layers: '	simontini:Forest_estate_adm',
+        transparent: true,
+        format: 'image/png'
+}).addTo(map)
+
 var poly = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
     layers: 'kpa:LPRA_KPA19_JUNI_2023',
     transparent: true,
     format: 'image/png'
 }).addTo(map);
 
-var forestADM = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
-        layers: '	simontini:Forest_estate_adm',
-        transparent: true,
-        format: 'image/png'
-}).addTo(map)
 
 var baseLayers = {
     "OpenStreetMap": osm,
