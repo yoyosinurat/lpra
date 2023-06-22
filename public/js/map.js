@@ -48,9 +48,9 @@ var baseLayers = {
 };
 
 var overlays = {
-    "polygon desa": poly,
     "forest adm": forestADM,
-    "IUPHHK_adm": IUPHHK_adm
+    "IUPHHK_adm": IUPHHK_adm,
+    "polygon desa": poly,
 };
 
 L.control.layers(baseLayers, overlays, {position: 'bottomleft'}).addTo(map);
