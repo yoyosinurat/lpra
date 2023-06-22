@@ -28,6 +28,12 @@ var forestADM = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
         format: 'image/png'
 }).addTo(map)
 
+var hgu = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
+        layers: 'kpa:HGU_BPN_2019',
+        transparent: true,
+        format: 'image/png'
+}).addTo(map)
+
 var IUPHHK_adm = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
         layers: 'simontini:IUPHHK_adm',
         transparent: true,
@@ -49,6 +55,7 @@ var baseLayers = {
 
 var overlays = {
     "forest adm": forestADM,
+    "HGU" : hgu,
     "IUPHHK_adm": IUPHHK_adm,
     "polygon desa": poly,
 };
