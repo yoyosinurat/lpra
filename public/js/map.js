@@ -23,7 +23,7 @@ var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 });
 
 var poly = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
-    layers: 'kpa:KPA_3',
+    layers: 'kpa:LPRA_KPA19_JUNI_2023',
     transparent: true,
     format: 'image/png'
 }).addTo(map);
