@@ -28,7 +28,7 @@ var poly = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
     format: 'image/png'
 }).addTo(map);
 
-var forestADM = L.tileLayer.wms('http://129.150.48.143:8080/geoserver/wfs', {
+var forestADM = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
         layers: '	simontini:Forest_estate_adm',
         transparent: true,
         format: 'image/png'
