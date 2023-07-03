@@ -20,27 +20,19 @@
     color: #96404C;
 }
 
-.bg-identifikasi {
-    background-color: #F72C25;
+.bg-hutan {
+    background-color: #16DB65;
 }
 
-.bg-pemetaan {
-    background-color: #89023E;
+.bg-kebun {
+    background-color: #960200;
 }
 
-.bg-pengorganisasian {
-    background-color: #339989;
-}
-
-.bg-redistribusi{
-    background-color: #0D3B66;
-}
-
-.bg-pbsnonaktif{
-    background-color: #F4B393;
-}
 
 .leaflet-popup-content{
     width: 330px !important;
 
+}
+.h-90{
+    height: 84vh;
 }

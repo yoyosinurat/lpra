@@ -4,7 +4,7 @@ var map = L.map('map', {
     center: [0.7893, 118.5213],
     zoom: 5.4,
     // attributionControl: false,
-    zoomControl: false
+    zoomControl: true
   });
 
 
@@ -14,7 +14,8 @@ var planet = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/W
 });
 var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 20,
-    subdomains:['mt0','mt1','mt2','mt3']
+    subdomains:['mt0','mt1','mt2','mt3'],
+    attribution: 'Auriga & KPA'
 }).addTo(map);
 
 var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -26,19 +27,19 @@ var forestADM = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
         layers: '	simontini:Forest_estate_adm',
         transparent: true,
         format: 'image/png'
-}).addTo(map)
+})
 
 var hgu = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
         layers: 'kpa:HGU_BPN_2019',
         transparent: true,
         format: 'image/png'
-}).addTo(map)
+})
 
 var IUPHHK_adm = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
         layers: 'simontini:IUPHHK_adm',
         transparent: true,
         format: 'image/png'
-}).addTo(map)
+})
 
 var poly = L.tileLayer.wms('https://aws.simontini.id/geoserver/wms', {
     layers: 'kpa:LPRA_KPA19_JUNI_2023',
@@ -54,10 +55,10 @@ var baseLayers = {
 };
 
 var overlays = {
-    "forest adm": forestADM,
+    "FOREST": forestADM,
     "HGU" : hgu,
-    "IUPHHK_adm": IUPHHK_adm,
-    "polygon desa": poly,
+    "IUPHHK": IUPHHK_adm,
+    "POLYGON LPRA": poly,
 };
 
 L.control.layers(baseLayers, overlays, {position: 'bottomleft'}).addTo(map);
@@ -65,7 +66,6 @@ L.control.layers(baseLayers, overlays, {position: 'bottomleft'}).addTo(map);
 
 
 var pruneCluster = new PruneClusterForLeaflet();
-
 pruneCluster.BuildLeafletClusterIcon = function(cluster) {
   var e = new L.Icon.MarkerCluster();
 
@@ -75,7 +75,7 @@ pruneCluster.BuildLeafletClusterIcon = function(cluster) {
 };
 
 
-var colors = ['#F72C25', '#89023E', '#339989', '#0D3B66', '#F4B393'],
+var colors = ['#16DB65','#960200'],
     pi2 = Math.PI * 2;
 
 pruneCluster.Cluster.Size =30;
@@ -145,8 +145,8 @@ L.Icon.MarkerCluster = L.Icon.extend({
     }
 });
 
-const stylepbsaktif = `
-background-color: #F72C25;
+const stylehutan = `
+background-color: #16DB65;
 width: 1.5rem;
 height: 1.5rem;
 display: block;
@@ -156,8 +156,8 @@ border-radius: 3rem 3rem 0;
 transform: rotate(45deg);
 border: 1px solid #FFFFFF`
 
-const stylepbnaktif = `
-background-color: #89023E;
+const stylenonhutan = `
+background-color: #960200;
 width: 1.5rem;
 height: 1.5rem;
 display: block;
@@ -167,80 +167,22 @@ border-radius: 3rem 3rem 0;
 transform: rotate(45deg);
 border: 1px solid #FFFFFF`
 
-const stylepbnnonaktif = `
-background-color: #339989;
-width: 1.5rem;
-height: 1.5rem;
-display: block;
-position: relative;
-top: 0.9rem;
-border-radius: 3rem 3rem 0;
-transform: rotate(45deg);
-border: 1px solid #FFFFFF`
-
-const styletanahnegara = `
-background-color: #0D3B66;
-width: 1.5rem;
-height: 1.5rem;
-display: block;
-position: relative;
-top: 0.9rem;
-border-radius: 3rem 3rem 0;
-transform: rotate(45deg);
-border: 1px solid #FFFFFF`
-
-const stylepbsnonaktif = `
-background-color: #F4B393;
-width: 1.5rem;
-height: 1.5rem;
-display: block;
-position: relative;
-top: 0.9rem;
-border-radius: 3rem 3rem 0;
-transform: rotate(45deg);
-border: 1px solid #FFFFFF`
-
-const iconPbsaktif = L.divIcon({
-    className: "iconPbsaktif",
+const iconhutan = L.divIcon({
+    className: "iconhutan",
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
      shadowSize: [41, 41],
-    html: `<span style="${stylepbsaktif}" />`
-})
-const iconPbnaktif = L.divIcon({
-    className: "iconPbnaktif",
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-     shadowSize: [41, 41],
-    html: `<span style="${stylepbnaktif}" />`
-})
-const iconPbnnonaktif = L.divIcon({
-    className: "iconPbnnonaktif",
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-     shadowSize: [41, 41],
-    html: `<span style="${stylepbnnonaktif}" />`
+    html: `<span style="${stylehutan}" />`
 })
 
-const iconTanahnegara = L.divIcon({
-    className: "iconTanahnegara",
+const iconnonhutan = L.divIcon({
+    className: "iconnonhutan",
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
      shadowSize: [41, 41],
-    html: `<span style="${styletanahnegara}" />`
-})
-
-const iconPbsnonaktif = L.divIcon({
-    className: "iconPbsnonaktif",
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-     shadowSize: [41, 41],
-    html: `<span style="${stylepbsnonaktif}" />`
+    html: `<span style="${stylenonhutan}" />`
 })
 
 String.prototype.toProperCase = function () {
@@ -262,21 +204,27 @@ String.prototype.toSlug = function (separator = "-") {
 
 const popupContent = function(data){
     return  '<div class="flex flex-col text-black w-full">'+
-            ' <h1 class="text-xl font-semibold capitalize">'+data.profil+'.</h1>'+
-                '<div class="mt-4 flex space-x-2"><a style="color:black" class="font-semibold"> Luas garapan:</a> <a style="color:black"> '+data.luas_ha+' ha</a></div>'+
-                '<div class=" flex space-x-2"><a style="color:black" class="font-semibold">Jumlah Petani:</a> <a  style="color:black">'+data.rtpp+'</a></div>'+
+            ' <h1 class="text-xl font-semibold capitalize">LPRA '+data.desa_kel+'.</h1>'+
+                '<div class="mt-4 flex space-x-2"><a style="color:black" class="font-semibold"> Luas LPRA:</a> <a style="color:black"> '+data.luas_ha+' ha</a></div>'+
+                '<div class=" flex space-x-2"><a style="color:black" class="font-semibold">Jumlah Keluarga:</a> <a  style="color:black">'+data.subjek_kk+' kk</a></div>'+
                 '<div class="flex space-x-2">'+
-                '<a style="color:black" class="font-semibold">Penggunaan:</a> <a style="color:black">'+data.penggunaan+'.</a>'+
+                '<a style="color:black" class="font-semibold">Penggunaan Tanah:</a> <a style="color:black">'+data.tata_guna+'.</a>'+
                 '</div>'+
                     '<div class="flex space-x-2">'+
-                    '<a style="color:black" class="font-semibold">Tahapan: </a> <a style="color:black">'+data.tahapan+'</a>' +
+                    '<a style="color:black" class="font-semibold">Tipologi: </a> <a style="color:black">'+data.tipologi+'</a>' +
+                '</div>'+
+                '</div>'+
+                    '<div class="flex space-x-2">'+
+                    '<a style="color:black" class="font-semibold">Perusahaan: </a> <a style="color:black">'+data.perusahaan+'</a>' +
+                '</div>'+
+                '</div>'+
+                    '<div class="flex space-x-2">'+
+                    '<a style="color:black" class="font-semibold">Pengusul: </a> <a style="color:black">'+data.organisasi+'</a>' +
                 '</div>'+
                 '<div class="flex space-x-2">'+
-                    '<a style="color:black" class="font-semibold">Lokasi: </a> <a style="color:black">'+data.desa.toProperCase()+', '+data.kecamatan.toProperCase()+', '+data.kabupaten.toProperCase()+', '+data.provinsi.toProperCase()+'.</a>'+
+                    '<a style="color:black" class="font-semibold">Lokasi: </a> <a style="color:black">Desa '+data.desa_kel.toProperCase()+', Kec '+data.kab_kota.toProperCase()+', Kab/Kota '+data.kec.toProperCase()+',  '+data.provinsi.toProperCase()+'.</a>'+
                 '</div>'+
-                '<div class="flex space-x-2">'+
-                    '<a style="color:black" class="font-semibold">Profil: </a> <a href="'+data.profil.toSlug()+'" style="color: red">Lebih detail.</a>'+
-                '</div>'+
+
                 '</div>'+
             '</div>'
 }
@@ -302,353 +250,266 @@ pruneCluster.PrepareLeafletMarker = function (marker, data, category) {
     }
 };
 
-var markerspbsaktif = [];
-var markerspbnaktif = [];
-var markerspbnnonaktif = [];
-var markerspbsnonaktif = [];
-var markerstanahnegara = [];
+var markershutan = [];
+var markersnonhutan = [];
 
 
 
 function handleJson(data) {
     selectedArea = L.geoJson(data, {
         onEachFeature: function(feature, layer) {
-            if(feature.properties.profil){
-                // console.log(feature.properties)
-                if(feature.properties.tahapan == 'PBS aktif'){
-                    const pbsaktif = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconPbsaktif,
-                        tooltip: feature.properties.tahapan,
+                console.log(feature.properties)
+                if(feature.properties.status == 'HUTAN'){
+                    const hutan = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
+                                icon: iconhutan,
+                                tooltip: feature.properties.status,
+                                popup: popupContent(feature.properties),
+                                });
+                                hutan.category = 0;
+                                markershutan.push(hutan);
+                                pruneCluster.RegisterMarker(hutan);
+                }else if(feature.properties.status == 'NON-HUTAN'){
+                    const nonhutan = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
+                        icon: iconnonhutan,
+                        tooltip: feature.properties.status,
                         popup: popupContent(feature.properties),
-                    });
-                        pbsaktif.category = 0;
-                        markerspbsaktif.push(pbsaktif);
-                        pruneCluster.RegisterMarker(pbsaktif);
-                }else if(feature.properties.tahapan == 'PBN aktif'){
-                    const pbnaktif = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconPbnaktif,
-                        tooltip: feature.properties.tahapan,
-                        popup: popupContent(feature.properties)
-                    });
-                        pbnaktif.category = 1;
-                        markerspbnaktif.push(pbnaktif);
-                        pruneCluster.RegisterMarker(pbnaktif);
-                }else if(feature.properties.tahapan == 'PBN nonaktif'){
-                    const pbnnonaktif = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconPbnnonaktif,
-                        tooltip: feature.properties.tahapan,
-                        popup: popupContent(feature.properties)
-                    });
-                        pbnnonaktif.category = 2;
-                        markerspbnnonaktif.push(pbnnonaktif);
-                        pruneCluster.RegisterMarker(pbnnonaktif);
-                }else if(feature.properties.tahapan == 'Tanah Negara'){
-                    const tanahnegara = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconTanahnegara,
-                        tooltip: feature.properties.tahapan,
-                        popup: popupContent(feature.properties)
-                    });
-                        tanahnegara.category = 3;
-                        markerstanahnegara.push(tanahnegara);
-                        pruneCluster.RegisterMarker(tanahnegara);
-                }else if(feature.properties.tahapan == 'PBS nonaktif'){
-                    const pbsnonaktif = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconPbsnonaktif,
-                        tooltip: feature.properties.tahapan,
-                        popup: popupContent(feature.properties)
-                    });
-                        pbsnonaktif.category = 4;
-                        markerspbsnonaktif.push(pbsnonaktif);
-                        pruneCluster.RegisterMarker(pbsnonaktif);
+                        });
+                        nonhutan.category = 1;
+                        markersnonhutan.push(nonhutan);
+                        pruneCluster.RegisterMarker(nonhutan);
                 }
-            }
 
         }
     })
     map.addLayer(pruneCluster);
 }
-$(document).ready(function () {
+
     $.ajax('https://aws.simontini.id/geoserver/wfs',{
         type: 'GET',
         data: {
-          service: 'WFS',
-          version: '1.1.0',
-          request: 'GetFeature',
-          typename: 'kpa:KPA_point',
-          srsname: 'EPSG:4326',
-          outputFormat: 'text/javascript',
-          },
-        dataType: 'jsonp',
-        jsonpCallback:'callback:handleJson',
-        jsonp:'format_options'
-       });
+            service: 'WFS',
+            version: '1.1.0',
+            request: 'GetFeature',
+            typename: 'kpa:LPRA_point_v1',
+            srsname: 'EPSG:4326',
+            outputFormat: 'text/javascript',
+        },
+            dataType: 'jsonp',
+            jsonpCallback:'callback:handleJson',
+            jsonp:'format_options'
+    });
+
+
+
 
       // the ajax callback function
 
 
-})
+    function handleHutan(data) {
+        selectedArea = L.geoJson(data, {
+            onEachFeature: function(feature, layer) {
+                        const hutan = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
+                            icon: iconhutan,
+                            tooltip: feature.properties.tahapan,
+                            popup: popupContent(feature.properties)
+                        });
+                            hutan.category = 0;
+                            markershutan.push(hutan);
+                            pruneCluster.RegisterMarker(hutan);
+                    }
 
+        })
+        pruneCluster.ProcessView();
 
+    }
+    function handleKebun(data) {
+        selectedArea = L.geoJson(data, {
+            onEachFeature: function(feature, layer) {
+                        const nonhutan = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
+                            icon: iconnonhutan,
+                            tooltip: feature.properties.tahapan,
+                            popup: popupContent(feature.properties)
+                        });
+                            nonhutan.category = 1;
+                            markersnonhutan.push(nonhutan);
+                            pruneCluster.RegisterMarker(nonhutan);
+                    }
 
+        })
+        pruneCluster.ProcessView();
 
-function handlePBSaktif(data) {
-    selectedArea = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
-            if(feature.properties.profil){
-                // console.log(feature.properties)
-                if(feature.properties.tahapan == 'PBS aktif'){
-                    const pbsaktif = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconPbsaktif,
-                        tooltip: feature.properties.tahapan,
-                        popup: popupContent(feature.properties)
-                    });
-                        pbsaktif.category = 0;
-                        markerspbsaktif.push(pbsaktif);
-                        pruneCluster.RegisterMarker(pbsaktif);
+    }
+    function resetHutan(data) {
+        console.log('hutan')
+        selectedArea = L.geoJson(data, {
+            onEachFeature: function(feature, layer) {
+                        const hutan = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
+                            icon: iconhutan,
+                            tooltip: feature.properties.tahapan,
+                            popup: popupContent(feature.properties)
+                        });
+                            hutan.category = 0;
+                            markershutan.push(hutan);
+                            pruneCluster.RegisterMarker(hutan);
+                    }
+
+        })
+        pruneCluster.ProcessView();
+
+    }
+    function resetKebun(data) {
+        console.log('hutan')
+        selectedArea = L.geoJson(data, {
+            onEachFeature: function(feature, layer) {
+                        const nonhutan = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
+                            icon: iconnonhutan,
+                            tooltip: feature.properties.tahapan,
+                            popup: popupContent(feature.properties)
+                        });
+                            nonhutan.category = 1;
+                            markersnonhutan.push(nonhutan);
+                            pruneCluster.RegisterMarker(nonhutan);
+                    }
+
+        })
+        pruneCluster.ProcessView();
+
+    }
+    function handleReset(data) {
+        selectedArea = L.geoJson(data, {
+            onEachFeature: function(feature, layer) {
+                console.log(feature.properties)
+                if(feature.properties.status == 'HUTAN'){
+                    const hutan = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
+                                icon: iconhutan,
+                                tooltip: feature.properties.status,
+                                popup: popupContent(feature.properties),
+                                });
+                                hutan.category = 0;
+                                markershutan.push(hutan);
+                                pruneCluster.RegisterMarker(hutan);
+                }else if(feature.properties.status == 'NON-HUTAN'){
+                    const nonhutan = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
+                        icon: iconnonhutan,
+                        tooltip: feature.properties.status,
+                        popup: popupContent(feature.properties),
+                        });
+                        nonhutan.category = 1;
+                        markersnonhutan.push(nonhutan);
+                        pruneCluster.RegisterMarker(nonhutan);
                 }
             }
+        })
+        pruneCluster.ProcessView();
 
-        }
-    })
-    pruneCluster.ProcessView();
-}
+    }
 
-function handlePBNaktif(data) {
-    selectedArea = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
-            if(feature.properties.profil){
-                // console.log(feature.properties)
-                if(feature.properties.tahapan == 'PBN aktif'){
-                    const pbnaktif = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconPbnaktif,
-                        tooltip: feature.properties.tahapan,
-                        popup: popupContent(feature.properties)
-                    });
-                        pbnaktif.category = 1;
-                        markerspbnaktif.push(pbnaktif);
-                        pruneCluster.RegisterMarker(pbnaktif);
-                }
-            }
+function submitLayer(){
+    var status = document.getElementById("status").value;
+    var hutan = document.getElementById("hutan").value;
+    var kebun = document.getElementById("kebun").value;
 
-        }
-    })
-    pruneCluster.ProcessView();
-}
+    if(status == 'Kawasan Hutan'){
+        pruneCluster.RemoveMarkers(markershutan);
+        pruneCluster.RemoveMarkers(markersnonhutan);
+        pruneCluster.ProcessView();
 
-function handlePBNnonaktif(data) {
-    selectedArea = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
-            if(feature.properties.profil){
-                // console.log(feature.properties)
-                if(feature.properties.tahapan == 'PBN nonaktif'){
-                    const pbnnonaktif = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconPbnnonaktif,
-                        tooltip: feature.properties.tahapan,
-                        popup: popupContent(feature.properties)
-                    });
-                        pbnnonaktif.category = 2;
-                        markerspbnnonaktif.push(pbnnonaktif);
-                        pruneCluster.RegisterMarker(pbnnonaktif);
-                }
-            }
-
-        }
-    })
-    pruneCluster.ProcessView();
-}
-
-function handlePBSnonaktif(data) {
-    selectedArea = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
-            if(feature.properties.profil){
-                 // console.log(feature.properties)
-                if(feature.properties.tahapan == 'PBS nonaktif'){
-                    const pbsnonaktif = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconPbsnonaktif,
-                        tooltip: feature.properties.tahapan,
-                        popup: popupContent(feature.properties)
-                    });
-                        pbsnonaktif.category = 4;
-                        markerspbsnonaktif.push(pbsnonaktif);
-                        pruneCluster.RegisterMarker(pbsnonaktif);
-                }
-            }
-
-        }
-    })
-    pruneCluster.ProcessView();
-}
-
-function handleTanahnegara(data) {
-    selectedArea = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
-            if(feature.properties.profil){
-                // console.log(feature.properties)
-                if(feature.properties.tahapan == 'Tanah Negara'){
-                    const tanahnegara = new PruneCluster.Marker(feature.properties.lat, feature.properties.long, {
-                        icon: iconTanahnegara,
-                        tooltip: feature.properties.tahapan,
-                        popup: popupContent(feature.properties)
-                    });
-                        tanahnegara.category = 3;
-                        markerstanahnegara.push(tanahnegara);
-                        pruneCluster.RegisterMarker(tanahnegara);
-                }
-            }
-
-        }
-    })
-    pruneCluster.ProcessView();
-}
-
-
-
-$('#pbsaktif:checkbox').on('change', function() {
-    var checkbox = $(this);
-    // toggle the marker
-
-    if ($(checkbox).is(':checked')) {
-        // console.log(markerspbsaktif)
-        pruneCluster.RemoveMarkers(markerspbsaktif);
+        console.log(hutan.toUpperCase())
         $.ajax('https://aws.simontini.id/geoserver/wfs',{
         type: 'GET',
             data: {
             service: 'WFS',
-            version: '1.1.0',
+            version: '1.1.1',
             request: 'GetFeature',
-            typename: 'kpa:KPA_point',
+            typename: 'kpa:LPRA_point_v1',
+            CQL_FILTER: "tipologi = '"+hutan.toUpperCase()+"' AND status= 'HUTAN'" ,
             srsname: 'EPSG:4326',
             outputFormat: 'text/javascript',
             },
             dataType: 'jsonp',
-            jsonpCallback:'callback:handlePBSaktif',
+            jsonpCallback:'callback:handleHutan',
             jsonp:'format_options'
         });
 
-    } else {
-        console.log('remove')
-        pruneCluster.RemoveMarkers(markerspbsaktif);
-        pruneCluster.ProcessView();
-    }
-});
-
-
-$('#pbnaktif:checkbox').on('change', function() {
-    var checkbox = $(this);
-    // toggle the marker
-    if ($(checkbox).is(':checked')) {
-        console.log('add')
-        pruneCluster.RemoveMarkers(markerspbnaktif);
-        $.ajax('https://aws.simontini.id/geoserver/wfs',{
-        type: 'GET',
-            data: {
-            service: 'WFS',
-            version: '1.1.0',
-            request: 'GetFeature',
-            typename: 'kpa:KPA_point',
-            srsname: 'EPSG:4326',
-            outputFormat: 'text/javascript',
-            },
-            dataType: 'jsonp',
-            jsonpCallback:'callback:handlePBNaktif',
-            jsonp:'format_options'
-        });
-
-    } else {
-        console.log('remove')
-        pruneCluster.RemoveMarkers(markerspbnaktif);
-        pruneCluster.ProcessView();
-
-    }
-});
-
-$('#pbnnonaktif:checkbox').on('change', function() {
-    var checkbox = $(this);
-    // toggle the marker
-    if ($(checkbox).is(':checked')) {
-        console.log('add')
-        pruneCluster.RemoveMarkers(markerspbnnonaktif);
-        $.ajax('https://aws.simontini.id/geoserver/wfs',{
-        type: 'GET',
-            data: {
-            service: 'WFS',
-            version: '1.1.0',
-            request: 'GetFeature',
-            typename: 'kpa:KPA_point',
-            srsname: 'EPSG:4326',
-            outputFormat: 'text/javascript',
-            },
-            dataType: 'jsonp',
-            jsonpCallback:'callback:handlePBNnonaktif',
-            jsonp:'format_options'
-        });
-    } else {
-        console.log('remove')
-        pruneCluster.RemoveMarkers(markerspbnnonaktif);
-        pruneCluster.ProcessView();
-
-    }
-});
-
-
-$('#pbsnonaktif:checkbox').on('change', function() {
-    var checkbox = $(this);
-    // toggle the marker
-    if ($(checkbox).is(':checked')) {
-        console.log('add')
-        pruneCluster.RemoveMarkers(markerspbsnonaktif);
-        $.ajax('https://aws.simontini.id/geoserver/wfs',{
+        if(hutan == 'kosong'){
+            $.ajax('https://aws.simontini.id/geoserver/wfs',{
             type: 'GET',
                 data: {
                 service: 'WFS',
-                version: '1.1.0',
+                version: '1.1.1',
                 request: 'GetFeature',
-                typename: 'kpa:KPA_point',
+                typename: 'kpa:LPRA_point_v1',
+                CQL_FILTER: "status= 'HUTAN'" ,
                 srsname: 'EPSG:4326',
-
                 outputFormat: 'text/javascript',
                 },
                 dataType: 'jsonp',
-                jsonpCallback:'callback:handlePBSnonaktif',
+                jsonpCallback:'callback:resetHutan',
                 jsonp:'format_options'
             });
-    } else {
-        console.log('remove')
-        pruneCluster.RemoveMarkers(markerspbsnonaktif);
+        }
+
+
+    }else if(status == 'Kebun / APL Lainnya'){
+        pruneCluster.RemoveMarkers(markershutan);
+        pruneCluster.RemoveMarkers(markersnonhutan);
         pruneCluster.ProcessView();
 
-    }
-});
-
-$('#tanahnegara:checkbox').on('change', function() {
-    var checkbox = $(this);
-    // toggle the marker
-    if ($(checkbox).is(':checked')) {
-        console.log('add')
-        pruneCluster.RemoveMarkers(markerstanahnegara);
+        console.log(hutan.toUpperCase())
         $.ajax('https://aws.simontini.id/geoserver/wfs',{
+        type: 'GET',
+            data: {
+            service: 'WFS',
+            version: '1.1.1',
+            request: 'GetFeature',
+            typename: 'kpa:LPRA_point_v1',
+            CQL_FILTER: "tipologi = '"+kebun.toUpperCase()+"' AND status= 'NON-HUTAN'" ,
+            srsname: 'EPSG:4326',
+            outputFormat: 'text/javascript',
+            },
+            dataType: 'jsonp',
+            jsonpCallback:'callback:handleKebun',
+            jsonp:'format_options'
+        });
+        if(kebun == 'kosong'){
+            $.ajax('https://aws.simontini.id/geoserver/wfs',{
             type: 'GET',
                 data: {
                 service: 'WFS',
-                version: '1.1.0',
+                version: '1.1.1',
                 request: 'GetFeature',
-                typename: 'kpa:KPA_point',
+                typename: 'kpa:LPRA_point_v1',
+                CQL_FILTER: "status= 'NON-HUTAN'" ,
                 srsname: 'EPSG:4326',
-
                 outputFormat: 'text/javascript',
                 },
                 dataType: 'jsonp',
-                jsonpCallback:'callback:handleTanahnegara',
+                jsonpCallback:'callback:resetKebun',
                 jsonp:'format_options'
             });
-    } else {
-        console.log('remove')
-        pruneCluster.RemoveMarkers(markerstanahnegara);
-        pruneCluster.ProcessView();
-
+        }
     }
-});
 
+}
 
+function resetLayer(){
+        map.flyTo([0.7893, 118.5213],5)
+        pruneCluster.RemoveMarkers(markershutan);
+        pruneCluster.RemoveMarkers(markersnonhutan);
+        $.ajax('https://aws.simontini.id/geoserver/wfs',{
+        type: 'GET',
+            data: {
+            service: 'WFS',
+            version: '1.1.1',
+            request: 'GetFeature',
+            typename: 'kpa:LPRA_point_v1',
+            srsname: 'EPSG:4326',
+            outputFormat: 'text/javascript',
+            },
+            dataType: 'jsonp',
+            jsonpCallback:'callback:handleReset',
+            jsonp:'format_options'
+        });
+}
 
 
